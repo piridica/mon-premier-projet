@@ -1,2 +1,104 @@
 # mon-premier-projet
 Mon tout premier projet GitHub
+
+## Ressource R210_GPO : 
+Dans le cadre du TP1 de la ressource R210_GPO, on demande de faire un readme alors on a choisit le projet de la SAE2.02 sur Huffman. Voici son readme ci-dessous. 
+Bonne lecture.
+
+# Compression de Texte par encodage d'Huffman
+> SAE 2.02 — Exploration algorithmique d'un problème  
+> BUT 1 Informatique — Groupe C5
+
+**Samuel MIHAILA · Victor BUGA · Thenujan NANTHAKUMAR**
+
+---
+
+## Structure du projet
+
+```
+projet-huffman/
+│
+├── main.py              # Point d'entrée du programme
+├── NoeudBinaire.py      # Classe de base : arbre binaire générique
+├── NoeudHuffman.py      # Classe héritée : arbre de Huffman
+├── assets.py            # Fonctions utilitaires (compression, CSV)
+├── test.py              # Tests unitaires et visuels
+│
+├── <stats.csv>          # Généré automatiquement — statistiques de compression
+├── <dossier_entree>/    # Dossier contenant les fichiers à traiter
+└── <dossier_sortie>/    # Dossier contenant les fichiers traités
+```
+
+---
+
+## Prérequis
+
+```bash
+pip install unidecode
+```
+
+---
+
+## Utilisation
+
+```bash
+python main.py <parametre> <dossier_entree> [dossier_sortie]
+```
+
+Paramètres :
+- `-i` : affichage des informations de compression enregistrées dans `stats.csv`
+- `-c` : compression de fichiers `.txt` en fichiers `.huff`
+- `-d` : décompression de fichiers `.huff` en fichiers `.txt`
+
+Si le dossier de destination n'est pas spécifié :
+- `-c` écrit dans `compresse/`
+- `-d` écrit dans `decompresse/`
+
+---
+
+## Sélection des fichiers
+
+Au lancement avec `-c`, le programme affiche la liste des fichiers `.txt` disponibles :
+
+```
+0. leCid.txt
+1. lesMiserables.txt
+2. marcheTrain.txt
+```
+
+| Entrée | Comportement |
+|--------|-------------|
+| `1` | Compresse uniquement le fichier n°1 |
+| `[0,1,2]` | Compresse les fichiers n°0, n°1 et n°2 |
+| `(0,2)` | Compresse les fichiers n°0 à n°2 (plage inclusive) |
+| *(vide)* | Compresse **tous** les fichiers du dossier |
+
+---
+
+## Statistiques de compression
+
+Les résultats sont automatiquement sauvegardés dans `stats.csv` et consultables via l'option `-i` :
+
+```
+FICHIER                TAILLE_INIT   TAILLE_COMP   TAUX
+------------------------------------------------------
+leCid.txt              45231040      24876512      44.97%
+lesMiserables.txt      12083200      6601344       45.36%
+marcheTrain.txt        8941600       4897344       45.22%
+```
+
+---
+
+## Tests
+
+Exécuter le fichier de tests indépendamment :
+
+```bash
+python test.py
+```
+
+Les tests couvrent :
+- Toutes les méthodes de `NoeudBinaire` (getters, setters, parcours, structure)
+- La construction de l'arbre de Huffman
+- L'encodage, la compression et la décompression
+- Vérification que `decompresser(compresser(chaine)) == chaine`
